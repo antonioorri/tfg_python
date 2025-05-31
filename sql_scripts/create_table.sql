@@ -1,0 +1,3 @@
+
+GRANT ALL PRIVILEGES ON TABLE objects TO postgres;
+
