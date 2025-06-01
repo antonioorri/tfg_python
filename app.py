@@ -116,7 +116,7 @@ def get_model(model_id):
     modelo = Model.query.get_or_404(model_id)
     return model_schema.jsonify(modelo)
 
-# Endpoint para buscar modelos por nombre (opcional)
+# Endpoint para buscar modelos por nombre 
 @app.route('/models/search', methods=['GET'])
 def search_models():
     name_query = request.args.get('name')
@@ -202,6 +202,14 @@ def upload_screenshot():
 @app.route('/screenshots/<filename>')
 def uploaded_screenshot(filename):
     return send_from_directory(app.config['SCREENSHOTS_FOLDER'], filename)
+
+# Carpeta donde están los modelos .glb
+MODELS_FOLDER = 'models'
+
+@app.route('/models/<path:filename>')
+def serve_model(filename):
+    # Envía el archivo solicitado al cliente
+    return send_from_directory(MODELS_FOLDER, filename)
 
 if __name__ == '__main__':
     CORS(app)  # Permite todas las peticiones CORS
